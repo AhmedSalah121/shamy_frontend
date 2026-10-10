@@ -1,0 +1,27 @@
+{
+  "name": "shamy-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shamy - Egyptian Office Breakfast Ordering and Fakka Change Settlement Web App",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "npx tsx src/tests/apiContract.test.ts"
+  },
+  "dependencies": {
+    "next": "15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "postcss": "^8.5.29",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
