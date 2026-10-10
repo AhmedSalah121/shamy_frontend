@@ -1,0 +1,306 @@
+import { Order, OrderItem, FrontPayer, BillBreakdown, NotificationItem, User } from '@/types';
+import { DEMO_USERS } from '@/config/constants';
+
+export interface MockDatabase {
+  users: User[];
+  orders: Order[];
+  items: OrderItem[];
+  frontPayers: FrontPayer[];
+  notifications: NotificationItem[];
+}
+
+// Initial realistic seed database matching Egyptian office breakfast scenarios
+export const INITIAL_MOCK_DATA: MockDatabase = {
+  users: [
+    {
+      id: 1,
+      name: 'Karim Mostafa',
+      email: 'karim@office.com',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+      instapayHandle: 'karim@instapay',
+      phoneNumber: '01011112222',
+      createdAt: '2026-10-08T19:00:00.000Z',
+    },
+    {
+      id: 2,
+      name: 'Sara Ahmed',
+      email: 'sara@office.com',
+      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80',
+      instapayHandle: 'sara@instapay',
+      phoneNumber: '01055556666',
+      createdAt: '2026-10-08T19:00:00.000Z',
+    },
+    {
+      id: 3,
+      name: 'Omar Farouk',
+      email: 'omar@office.com',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80',
+      instapayHandle: 'omar@instapay',
+      phoneNumber: '01099990000',
+      createdAt: '2026-10-08T19:00:00.000Z',
+    },
+    {
+      id: 4,
+      name: 'Tarek Zaki',
+      email: 'tarek@office.com',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+      instapayHandle: 'tarek@instapay',
+      phoneNumber: '01033334444',
+      createdAt: '2026-10-08T19:00:00.000Z',
+    },
+    {
+      id: 5,
+      name: 'Nour El-Din',
+      email: 'nour@office.com',
+      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
+      instapayHandle: 'nour@instapay',
+      phoneNumber: '01077778888',
+      createdAt: '2026-10-08T19:00:00.000Z',
+    },
+  ],
+
+  orders: [
+    {
+      id: 1,
+      title: 'Morning Arabiata Run 🧆',
+      description: 'Foul, Falafel, Boiled Eggs & French Fries before 10:30 AM team standup',
+      restaurantName: 'Arabiata',
+      restaurantPhone: '19999',
+      menuUrl: 'https://menu.arabiata.com',
+      menuImageUrl: null,
+      status: 'OPEN',
+      deadline: new Date(Date.now() + 45 * 60 * 1000).toISOString(), // 45 mins from now
+      isDeadlinePassed: false,
+      deliveryFee: 30,
+      creatorId: 1,
+      creator: {
+        id: 1,
+        name: 'Karim Mostafa',
+        instapayHandle: 'karim@instapay',
+        phoneNumber: '01011112222',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+      },
+      pickupHero: null,
+      participants: [
+        {
+          id: 1,
+          orderId: 1,
+          userId: 1,
+          joinedAt: '2026-10-08T09:00:00.000Z',
+          user: {
+            id: 1,
+            name: 'Karim Mostafa',
+            instapayHandle: 'karim@instapay',
+            phoneNumber: '01011112222',
+          },
+        },
+        {
+          id: 2,
+          orderId: 1,
+          userId: 2,
+          joinedAt: '2026-10-08T09:05:00.000Z',
+          user: {
+            id: 2,
+            name: 'Sara Ahmed',
+            instapayHandle: 'sara@instapay',
+            phoneNumber: '01055556666',
+          },
+        },
+        {
+          id: 3,
+          orderId: 1,
+          userId: 3,
+          joinedAt: '2026-10-08T09:10:00.000Z',
+          user: {
+            id: 3,
+            name: 'Omar Farouk',
+            instapayHandle: 'omar@instapay',
+            phoneNumber: '01099990000',
+          },
+        },
+        {
+          id: 4,
+          orderId: 1,
+          userId: 4,
+          joinedAt: '2026-10-08T09:12:00.000Z',
+          user: {
+            id: 4,
+            name: 'Tarek Zaki',
+            instapayHandle: 'tarek@instapay',
+            phoneNumber: '01033334444',
+          },
+        },
+      ],
+      createdAt: '2026-10-08T09:00:00.000Z',
+      updatedAt: '2026-10-08T09:15:00.000Z',
+    },
+    {
+      id: 2,
+      title: 'Zooba Gourmet Foul & Taameya 🥙',
+      description: 'Hawawshi, Alexandrian Foul & Hibiscus Iced Tea',
+      restaurantName: 'Zooba Zamalek',
+      restaurantPhone: '16088',
+      menuUrl: 'https://zoobaeats.com',
+      menuImageUrl: null,
+      status: 'DELIVERED',
+      deadline: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+      isDeadlinePassed: true,
+      deliveryFee: 40,
+      creatorId: 2,
+      creator: {
+        id: 2,
+        name: 'Sara Ahmed',
+        instapayHandle: 'sara@instapay',
+        phoneNumber: '01055556666',
+      },
+      pickupHero: {
+        id: 4,
+        name: 'Tarek Zaki',
+        email: 'tarek@office.com',
+        instapayHandle: 'tarek@instapay',
+        phoneNumber: '01033334444',
+      },
+      participants: [
+        {
+          id: 5,
+          orderId: 2,
+          userId: 2,
+          user: { id: 2, name: 'Sara Ahmed', instapayHandle: 'sara@instapay' },
+        },
+        {
+          id: 6,
+          orderId: 2,
+          userId: 1,
+          user: { id: 1, name: 'Karim Mostafa', instapayHandle: 'karim@instapay' },
+        },
+      ],
+      createdAt: '2026-10-08T08:00:00.000Z',
+    },
+  ],
+
+  items: [
+    {
+      id: 1,
+      orderId: 1,
+      userId: 1,
+      name: 'Foul with Olive Oil & Lemon',
+      quantity: 2,
+      unitPrice: 18,
+      totalPrice: 36,
+      notes: 'Extra cumin on the side',
+      participant: {
+        id: 1,
+        userId: 1,
+        user: { id: 1, name: 'Karim Mostafa' },
+      },
+    },
+    {
+      id: 2,
+      orderId: 1,
+      userId: 1,
+      name: 'Crispy French Fries Packet',
+      quantity: 1,
+      unitPrice: 22,
+      totalPrice: 22,
+      notes: 'Crispy well-done',
+      participant: {
+        id: 1,
+        userId: 1,
+        user: { id: 1, name: 'Karim Mostafa' },
+      },
+    },
+    {
+      id: 3,
+      orderId: 1,
+      userId: 2,
+      name: 'Falafel Stuffed with Baba Ghanoush',
+      quantity: 2,
+      unitPrice: 16.5,
+      totalPrice: 33,
+      notes: 'Spicy tahini on the side',
+      participant: {
+        id: 2,
+        userId: 2,
+        user: { id: 2, name: 'Sara Ahmed' },
+      },
+    },
+    {
+      id: 4,
+      orderId: 1,
+      userId: 3,
+      name: 'Foul with Alexandrian Sausage (Sujuk)',
+      quantity: 1,
+      unitPrice: 32,
+      totalPrice: 32,
+      notes: 'Medium spicy',
+      participant: {
+        id: 3,
+        userId: 3,
+        user: { id: 3, name: 'Omar Farouk' },
+      },
+    },
+    {
+      id: 5,
+      orderId: 1,
+      userId: 4,
+      name: 'Shakshouka Egyptian Style',
+      quantity: 2,
+      unitPrice: 25,
+      totalPrice: 50,
+      notes: 'Soft yolk please',
+      participant: {
+        id: 4,
+        userId: 4,
+        user: { id: 4, name: 'Tarek Zaki' },
+      },
+    },
+  ],
+
+  frontPayers: [
+    {
+      id: 1,
+      orderId: 1,
+      userId: 1,
+      userName: 'Karim Mostafa',
+      instapayHandle: 'karim@instapay',
+      phoneNumber: '01011112222',
+      amountPaid: 200,
+      notes: 'Paid cash note to the delivery driver at gate 2',
+      createdAt: '2026-10-08T09:30:00.000Z',
+    },
+    {
+      id: 2,
+      orderId: 1,
+      userId: 3,
+      userName: 'Omar Farouk',
+      instapayHandle: 'omar@instapay',
+      phoneNumber: '01099990000',
+      amountPaid: 100,
+      notes: 'Covered remaining bill in 50s',
+      createdAt: '2026-10-08T09:32:00.000Z',
+    },
+  ],
+
+  notifications: [
+    {
+      id: 1,
+      userId: 1,
+      orderId: 1,
+      title: 'Order Created 🥐',
+      message: 'Morning Arabiata Run 🧆 is open for orders! Deadline is 10:30 AM.',
+      type: 'ORDER_CREATED',
+      readAt: null,
+      createdAt: new Date(Date.now() - 35 * 60 * 1000).toISOString(),
+    },
+    {
+      id: 2,
+      userId: 2,
+      orderId: 1,
+      title: 'Colleague Joined',
+      message: 'Omar Farouk joined your breakfast order.',
+      type: 'ORDER_CREATED',
+      readAt: '2026-10-08T09:15:00.000Z',
+      createdAt: new Date(Date.now() - 25 * 60 * 1000).toISOString(),
+    },
+  ],
+};
